@@ -2,6 +2,11 @@
 
 <h2>👨‍💻 Software Development Projects:</h2>
 
+<h3>AI Support Ticket Classifier</h3>
+<p>Link to project: https://github.com/goutham101/AI-Ticket-Classifier</p>
+<h4>Description</h4>
+<p>A Python machine learning project that classifies customer support tickets using TF-IDF vectorization and scikit-learn models. The system compares Multinomial Naive Bayes and Logistic Regression to automatically categorize incoming text requests such as billing issues, account access problems, technical errors, and feature requests.</p>
+
 <h3>Task Tracker:</h3>
 <p>Link to project: https://github.com/goutham101/TaskTracker</p>
 <h4>Description</h4>
@@ -15,6 +20,6 @@
 <h3>Slot Machine</h3>
 <p>Link to project: https://github.com/goutham101/Slot-Machine</p>
 <h4>Description</h4>
-<p></p>A Python command-line slot machine that simulates betting, weighted probabilities, and payout logic using core programming concepts.</p>
+<p>A Python command-line slot machine that simulates betting, weighted probabilities, and payout logic using core programming concepts.</p>
 
 
