@@ -3,7 +3,7 @@
 <h2>👨‍💻 Software Development Projects:</h2>
 
 <h3>AI Support Ticket Classifier</h3>
-<p>Link to project: https://github.com/goutham101/AI-Ticket-Classifier</p>
+<p>Link to project: https://github.com/goutham101/AI-Support-Ticket-Classifier</p>
 <h4>Description</h4>
 <p>A Python machine learning project that classifies customer support tickets using TF-IDF vectorization and scikit-learn models. The system compares Multinomial Naive Bayes and Logistic Regression to automatically categorize incoming text requests such as billing issues, account access problems, technical errors, and feature requests.</p>
 
