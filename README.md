@@ -2,6 +2,12 @@
 
 <h2>👨‍💻 Software Development Projects:</h2>
 
+<h3>Job Application Tracker (Full-Stack Web App)</h3>
+<p>Link to project: https://github.com/goutham101/Job-Application-Tracker</p>
+<h4>Description</h4>
+<p>A full-stack app I built to keep track of my own job search. The backend is FastAPI with PostgreSQL, and the frontend is a React dashboard with funnel and time-in-stage analytics. Instead of storing a status column, every application is tracked as an append-only log of events, so the current status is always derived from history and can never drift out of sync. It also polls my Gmail for emails from Greenhouse, Lever, and Workday, classifies them as rejections or interview requests, and puts them in a review queue for me to confirm before anything is saved. Comes with a 51-test pytest suite and is deployed on Render and Neon, with GitHub Actions running the email poller every few hours.
+
+
 <h3>AI Support Ticket Classifier</h3>
 <p>Link to project: https://github.com/goutham101/AI-Support-Ticket-Classifier</p>
 <h4>Description</h4>
