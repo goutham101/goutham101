@@ -5,27 +5,12 @@
 <h3>Job Application Tracker (Full-Stack Web App)</h3>
 <p>Link to project: https://github.com/goutham101/Job-Application-Tracker</p>
 <h4>Description</h4>
-<p>A full-stack app I built to keep track of my own job search. The backend is FastAPI with PostgreSQL, and the frontend is a React dashboard with funnel and time-in-stage analytics. Instead of storing a status column, every application is tracked as an append-only log of events, so the current status is always derived from history and can never drift out of sync. It also polls my Gmail for emails from Greenhouse, Lever, and Workday, classifies them as rejections or interview requests, and puts them in a review queue for me to confirm before anything is saved. Comes with a 51-test pytest suite and is deployed on Render and Neon, with GitHub Actions running the email poller every few hours.
+<p>A full-stack app I built to run my own job search, with a FastAPI and PostgreSQL backend and a React dashboard. The central design choice is that there is no status column. Every application is an append-only log of stage events (applied, OA, phone screen, interview, final round, offer, rejected, withdrawn). The current status is derived with a <code>DISTINCT ON</code> query over an index on <code>(application_id, occurred_at DESC)</code>, so it can never drift out of sync with the history. Because the full history is kept, the analytics come straight from SQL window functions. <code>LAG()</code> over each application's events gives the average days spent in every stage transition, alongside a conversion funnel and a response-rate breakdown by source (referral vs. cold apply vs. recruiter). Events logged out of order are rejected with a 409 unless explicitly marked as a backfill, which protects the timeline the analytics depend on. Updates come in automatically: a GitHub Actions job polls Gmail over IMAP every 4 hours for emails from Greenhouse, Lever and Workday. It classifies each one as a rejection, interview request or confirmation, and fuzzy-matches the sender to a tracked company (RapidFuzz, 85% similarity threshold). Nothing is written automatically. Matches go into a review queue for me to confirm or dismiss, because a wrong "rejected" on a live application costs more than a few seconds of review. The poller is idempotent: each Gmail message ID is recorded, so re-runs never create duplicate events. The project includes a 55-test pytest suite, Docker Compose for local development and optional API-key auth, and it is deployed on Render with a Neon Postgres database.</p>
+<p><strong>Tech:</strong> Python, FastAPI, PostgreSQL (raw SQL, psycopg), React, Vite, RapidFuzz, pytest, Docker, GitHub Actions, Render, Neon</p>
 
 
 <h3>AI Support Ticket Classifier</h3>
 <p>Link to project: https://github.com/goutham101/AI-Support-Ticket-Classifier</p>
 <h4>Description</h4>
-<p>A Python machine learning project that classifies customer support tickets using TF-IDF vectorization and scikit-learn models. The system compares Multinomial Naive Bayes and Logistic Regression to automatically categorize incoming text requests such as billing issues, account access problems, technical errors, and feature requests.</p>
-
-<h3>Task Tracker:</h3>
-<p>Link to project: https://github.com/goutham101/TaskTracker</p>
-<h4>Description</h4>
-<p>Python-based command-line task tracker that lets users add, view, and update tasks with persistent storage using a local JSON file. Built to practice core software engineering skills such as file I/O, CLI argument parsing, data structures, and state management without external libraries, emphasizing clarity, simplicity, and tooling patterns useful</p>
-
-<h3>GPA Calculator</h3>
-<p>Link to project: https://github.com/goutham101/GPA-Calculator</p>
-<h4>Description</h4>
-<p>A Python-based command-line GPA planner that allows users to add courses with credits and letter grades, calculate a weighted GPA, and persist data using JSON. Built to demonstrate core programming fundamentals, file I/O, and clean data modeling in a practical academic tool.</p>
-
-<h3>Slot Machine</h3>
-<p>Link to project: https://github.com/goutham101/Slot-Machine</p>
-<h4>Description</h4>
-<p>A Python command-line slot machine that simulates betting, weighted probabilities, and payout logic using core programming concepts.</p>
-
-
+<p>A machine learning service that sends customer support tickets to the right category automatically, trained on Banking77: 13,083 real banking support queries labeled with 77 fine-grained intents. The deployed model is TF-IDF plus Logistic Regression, chosen over Naive Bayes using stratified 5-fold cross-validation and tuned with GridSearchCV. It scores 0.85 macro-F1 on a held-out test set that was used only once, at the very end. When the model isn't confident, it doesn't guess: tickets below a confidence threshold of 0.61 are flagged for human review. That threshold was chosen on validation data so the model is 95% precise on the 73% of tickets it labels on its own. I also compared it against a sentence-transformer model (MiniLM), which was more accurate (0.91 F1) but 33x slower and 67x larger. I kept the lighter model for production and documented the trade-off. The classifier runs as a FastAPI service with a web demo on Render, and GitHub Actions retrains it on every push.</p>
+<p><strong>Tech:</strong> Python, scikit-learn, FastAPI, pandas, sentence-transformers, pytest, GitHub Actions, Render</p>
